@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<h1 align="center">Products</h1>
+
+
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Product Name</th>
+        <th></th>
+        <th>Stock</th>
+        <th>Vendor</th>
+        <th>Price</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for product in products %}
+      <tr >
+        <td>{{product.title}}</td>
+        <td><a href="products/{{product.id}}"><img src={{product.image.src}}  width="150" height="80"></a></td>
+        <td>{{product.variants[0].inventory_quantity}}</td>
+        <td>{{product.vendor}}</td>
+        <td>{{product.variants[0].price}}&#8377;</td>
+        <td><button type="button" onclick="buy_now({{product.id}})" >BUY NOW</button></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}
+
+
+{% block script %}
+function buy_now(id){
+  url='http://'+window.location.hostname+'/order/'+id
+  //window.open(url,"_self")
+  window.location.href=url
+}
+
+{% endblock %}
+
+
+
+

@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<!--<h1 align="center">Products</h1>-->
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>{{product.vendor}}</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr>
+          <td>{{product.title}}</td>
+          <td><img src={{product.image.src}}  width="400" height="180"></td>
+          <td>Only {{product.variants[0].inventory_quantity}} items left!</td>
+          <td>{{product.variants[0].price}}&#8377;</td>
+          <td><button type="button" onclick="buy_now({{product.id}})" >BUY NOW</button></td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}
+
+{% block script %}
+function buy_now(id){
+  url='http://'+window.location.hostname+'/order/'+id
+  //window.open(url,"_self")
+  window.location.href=url
+}
+
+{% endblock %}
+
+

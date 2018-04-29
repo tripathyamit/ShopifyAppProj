@@ -1,0 +1,119 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="container">
+
+
+
+	<div class="row">
+
+      <!--form starts-->
+<fieldset>
+<!-- Form Name -->
+<legend>Order</legend>
+            <!--item info -->
+		    <form action="{{ url_for('order') }}" method="post" class="form-horizontal">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>{{product.vendor}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr>
+                      <td><span style="font-weight:bold">Item:</span>{{product.title}}</td>
+                      <td><img src={{product.image.src}}  width="400" height="180"></td>
+
+                      <td>
+                        <span style="font-weight:bold">Quantity:</span><input id="quantity" name="quantity" value="1" min="1" max="5" type="number">
+                      </td>
+
+                      <td><span style="font-weight:bold">Price:</span><span><span id="result_price">{{product.variants[0].price}}</span>&#8377;</td>
+                  </tr>
+
+                </tbody>
+              </table>
+
+
+              <input type="hidden" name="product_id" id="product_id" value="{{product.variants[0].id}}">
+              <input type="hidden" name="product_name" id="product_name" value="{{product.options[0].name}}">
+              <input type="hidden" name="title" id="title" value="{{product.title}}">
+              <input type="hidden" name="price" id="price" value="{{product.variants[0].price}}">
+                <!--<input type="hidden" name="location_id" id="location_id" value="{{product.title}}">-->
+                <!--<input type="hidden" name="inventory_item_id" id="inventory_item_id" value="{{product.title}}">-->
+
+
+
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="name">Full Name</label>
+                <div class="col-md-4">
+                <input id="name" name="name" type="text" placeholder="Full Name" class="form-control input-md" required="">
+
+                </div>
+              </div>
+
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="email">Email</label>
+                <div class="col-md-4">
+                <input id="email" name="email" type="email" placeholder="Email" class="form-control input-md">
+
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="email">Payment</label>
+                <div class="col-md-4">
+                <!--<input id="payment" name="payment" type="number" placeholder="Cash" class="form-control input-md">-->
+                    <select id="payment" name="payment" disabled>
+                      <option value="cash">Cash</option>
+                      <!--<option value="card">Card</option>-->
+                      <!--<option value="wallet">Wallet</option>-->
+                    </select>
+                    <p>Card/Wallet Option Will Be Added Soon.</p>
+                </div>
+              </div>
+
+              <!-- Text input-->
+              <!--<div class="form-group">-->
+                <!--<label class="col-md-4 control-label" for="textinputmobilealt">Alternate Mobile</label>-->
+                <!--<div class="col-md-4">-->
+                <!--<input id="textinputmobilealt" name="textinputmobilealt" type="text" placeholder="alternate mobile no." class="form-control input-md">-->
+
+                <!--</div>-->
+              <!--</div>-->
+
+              <!-- Button -->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="singlebuttonsubmit"></label>
+                <div class="col-md-4">
+                  <button id="singlebuttonsubmit" name="singlebuttonsubmit" class="btn btn-primary">Place Order</button>
+                </div>
+              </div>
+
+</fieldset>
+</form>
+	</div>
+
+  <!--item info-->
+
+
+</div>
+
+{% endblock %}
+
+
+
+
+{% block script %}
+$('#quantity').bind('input', function() {
+     quan=$(this).val()
+        price=document.getElementById("price").value;
+        document.getElementById("result_price").innerText=price*quan;
+});
+
+
+{% endblock %}
+
